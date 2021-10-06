@@ -1,24 +1,35 @@
+<?php
+
 require __DIR__ . '/vendor/autoload.php';
 
 use League\OAuth2\Client\Provider\Google;
 
-session_start();
+session_start(); // Remove if session.auto_start=1 in php.ini
 
-$provider=new Google{[
-    'clientId'=>'{google-client-id}',
-    'clientSecret'=>'{google-client-secret}',
-    'redirectUri'=>'https://example.com/callback-url',
-    'hostedDomain'=>'example.com'
-    ]};
+$provider = new Google([
+    'clientId'     => '117975629972-8edjtponb6jiplnj8jd92bm5244q5f42.apps.googleusercontent.com',
+    'clientSecret' => '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',
+    'redirectUri'  => 'https://example.com/callback-url',
+    'hostedDomain' => 'tuiasi.ro', // optional; used to restrict access to users on your G Suite/Google Apps for Business accounts
+]);
 
-if(!empty($_GET['error'])){
-    exit('Got error: '. htmlspecialchars($_GET['error'],ENT_QUOTES,'UTF-8'));
-}elseif(empty($_GET['code'])){
-    $authUrl=$provider->getAuthorizationUrl();
-    $_SESSION['oauth2state']=$provider->getState();
-    header('Location: ' .$authUrl);
+if (!empty($_GET['error'])) {
+
+    // Got an error, probably user denied access
+    exit('Got error: ' . htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
+
+} elseif (empty($_GET['code'])) {
+
+    // If we don't have an authorization code then get one
+    $authUrl = $provider->getAuthorizationUrl();
+    $_SESSION['oauth2state'] = $provider->getState();
+
+    //set te session login to true
+    $_SESSION["login"]=1;
+
+    header('Location: ' . $authUrl);
     exit;
-}
+
 } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
 
     // State is invalid, possible CSRF attack in progress
@@ -57,6 +68,8 @@ if(!empty($_GET['error'])){
     // Unix timestamp at which the access token expires
     echo $token->getExpires();
 }
+
+?>
 
 
 
