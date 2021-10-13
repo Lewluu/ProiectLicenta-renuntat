@@ -9,7 +9,7 @@ session_start(); // Remove if session.auto_start=1 in php.ini
 $provider = new Google([
     'clientId'     => '117975629972-8edjtponb6jiplnj8jd92bm5244q5f42.apps.googleusercontent.com',
     'clientSecret' => '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',
-    'redirectUri'  => 'https://example.com/callback-url',
+    'redirectUri'  => 'http://localhost/ProiectLicenta/index.html',
     'hostedDomain' => 'tuiasi.ro', // optional; used to restrict access to users on your G Suite/Google Apps for Business accounts
 ]);
 
@@ -23,9 +23,6 @@ if (!empty($_GET['error'])) {
     // If we don't have an authorization code then get one
     $authUrl = $provider->getAuthorizationUrl();
     $_SESSION['oauth2state'] = $provider->getState();
-
-    //set te session login to true
-    $_SESSION["login"]=1;
 
     header('Location: ' . $authUrl);
     exit;
