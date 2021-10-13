@@ -24,6 +24,8 @@ if (!empty($_GET['error'])) {
     $authUrl = $provider->getAuthorizationUrl();
     $_SESSION['oauth2state'] = $provider->getState();
 
+    $_SESSION['authUrl']=$authUrl;
+
     header('Location: ' . $authUrl);
     exit;
 

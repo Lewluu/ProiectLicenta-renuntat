@@ -12,6 +12,6 @@ $(document).ready(function(){
         error:function(e){
             console.log('error');
         }
-    })
+    });
 });
 
