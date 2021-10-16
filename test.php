@@ -19,8 +19,15 @@ if(isset($_SESSION['access_token']) && $_SESSION['access_token']){
     header('Location: '.filter_var($redirect_uri,FILTER_SANITIZE_URL));
 }
 
-$jwt=explode('.',$data)
+$token=$_SESSION['access_token'];
+print_r($token);
 
-//header("Location: https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=".$_SESSION['access_token']);
+echo "<br><br>";
+echo var_dump($token);
+
+echo "<br><br>";
+echo $token["id_token"];
+
+//header("Location: https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=".$token["access_token"]);
 
 ?>
