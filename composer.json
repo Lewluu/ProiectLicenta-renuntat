@@ -1,6 +1,7 @@
 {
     "require": {
         "league/oauth2-google": "^4.0",
-        "google/apiclient": "^2.11"
+        "google/apiclient": "^2.11",
+        "paragonie/sodium_compat": "^1.17"
     }
 }
